@@ -4,6 +4,12 @@ resource "aws_ecs_service" "react" {
   task_definition = aws_ecs_task_definition.react_task_definition.arn
   desired_count   = var.desired_count
   launch_type     = "FARGATE"
+
+
+   capacity_provider_strategy {
+    capacity_provider = "FARGATE_SPOT"
+    weight            = 1
+  }
   network_configuration {
     subnets         = var.private_subnets
     security_groups = [var.security_group_id]
